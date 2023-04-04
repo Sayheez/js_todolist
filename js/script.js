@@ -5,32 +5,32 @@ const todoList = document.querySelector(".todo-list");
 const editItem = null;
 
 const createTodoItem = (item) => {
-    let divTodo = document.createElement("div");
-    divTodo.classList.add("todo-div");
+    let todoItem = document.createElement("ul");
+    todoItem.classList.add("todo-div");
 
     let itemLi = document.createElement("li");
     itemLi.classList.add("todo-task");
     itemLi.innerText = item;
     // add local storage check to this line later
     // add save to local storage to this line later
-    divTodo.append(itemLi);
+    todoItem.append(itemLi);
 
     let editBtn = document.createElement("button");
     editBtn.classList.add("edit-btn");
     editBtn.innerHTML = "edit";
-    divTodo.append(editBtn);
+    todoItem.append(editBtn);
 
     let deleteBtn = document.createElement("button");
     deleteBtn.classList.add("delete-btn");
     deleteBtn.innerHTML = "delete";
-    divTodo.append(deleteBtn);
+    todoItem.append(deleteBtn);
     deleteBtn.addEventListener("click", () => {
-        divTodo.remove();
+        todoItem.remove();
         // todoList.removeChild(divTodo);
         // add save to local storage to this line later
     });
 
-    todoList.append(divTodo);
+    todoList.append(todoItem);
 
     return todoList;
 };
@@ -49,6 +49,7 @@ const addTodo = (e) => {
         createTodoItem(inputTodo.value);
         // add save to local storage to this line later
         inputTodo.value = "";
+        inputTodo.focus();
     }
 
 };
@@ -62,5 +63,4 @@ const updateTodo = (e) => {
         addTodoBtn.value = "edit";
         editItem = e;
     }
-
 };
