@@ -29,4 +29,27 @@ const createTodoItem = (item) => {
         // todoList.removeChild(divTodo);
         // add save to local storage to this line later
     });
+
+    todoList.append(divTodo);
+
+    return todoList;
 };
+
+const addTodo = (e) => {
+    e.preventDefault();
+
+    if(addTodoBtn.value != "Submit") {
+        e.target.previousSibling.innerText = inputTodo.value;
+        addTodoBtn.value = "Submit";
+        inputTodo.value = "";
+    };
+
+    if(inputTodo.value.trim() !== "") {
+        createTodoItem(inputTodo.value);
+        // add save to local storage to this line later
+        inputTodo.value = "";
+    }
+
+};
+
+addTodoBtn.addEventListener("click", addTodo);
