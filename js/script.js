@@ -42,6 +42,7 @@ const addTodo = (e) => {
         e.target.previousSibling.innerText = inputTodo.value;
         addTodoBtn.value = "Submit";
         inputTodo.value = "";
+        return false;
     };
 
     if(inputTodo.value.trim() !== "") {
@@ -53,3 +54,13 @@ const addTodo = (e) => {
 };
 
 addTodoBtn.addEventListener("click", addTodo);
+
+const updateTodo = (e) => {
+    if(e.target.classList.contains("edit-btn")) {
+        console.log(e.target);
+        inputTodo.value = e.target.previousSibling.innerText;
+        addTodoBtn.value = "edit";
+        editItem = e;
+    }
+
+};
