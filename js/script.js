@@ -19,6 +19,12 @@ const createTodoItem = (item) => {
     editBtn.classList.add("edit-btn");
     editBtn.innerHTML = "edit";
     todoItem.append(editBtn);
+    editBtn.addEventListener("click", () => updateTodo); 
+    // {
+    //     updateTodo();
+    //     // todoList.removeChild(divTodo);
+    //     // add save to local storage to this line later
+    // });
 
     let deleteBtn = document.createElement("button");
     deleteBtn.classList.add("delete-btn");
@@ -33,34 +39,66 @@ const createTodoItem = (item) => {
     todoList.append(todoItem);
 
     return todoList;
-};
+}
 
 const addTodo = (e) => {
     e.preventDefault();
+    console.log(e.target);
+    const todos = checkTodosLocalStorage();
 
     if(addTodoBtn.value != "Submit") {
         e.target.previousSibling.innerText = inputTodo.value;
         addTodoBtn.value = "Submit";
         inputTodo.value = "";
         return false;
-    };
+    }
 
     if(inputTodo.value.trim() !== "") {
         createTodoItem(inputTodo.value);
+        todos.push(inputTodo.value);
+        saveTodoLocalStorage(todos);
         // add save to local storage to this line later
         inputTodo.value = "";
         inputTodo.focus();
     }
 
-};
-
-addTodoBtn.addEventListener("click", addTodo);
+}
 
 const updateTodo = (e) => {
+    e.preventDefault();
+    console.log(e.target.previousSibling.innerText);
     if(e.target.classList.contains("edit-btn")) {
         console.log(e.target);
         inputTodo.value = e.target.previousSibling.innerText;
         addTodoBtn.value = "edit";
-        editItem = e;
+        // editItem = e;
     }
-};
+}
+
+// Function to check if there are todos already in the  Local Storage array or the array is empty
+const checkTodosLocalStorage = () => {
+    return JSON.parse(localStorage.getItem("todo") || "[]");
+}
+
+// Function to save a todo to Local Storage
+const saveTodoLocalStorage = (todo) => {
+    // const todos = checkTodosLocalStorage();
+    // todos.push(todo);
+    localStorage.setItem("todo", JSON.stringify(todo));
+}
+
+const deleteTodoLocalStorage = (todo) => {
+    
+}
+
+const getTodos = () => {
+    const todos = checkTodosLocalStorage();
+
+    todos.forEach(todo => {
+        createTodoItem(todo);
+    });
+}
+
+
+addTodoBtn.addEventListener("click", addTodo);
+document.addEventListener("DOMContentLoaded", getTodos);
