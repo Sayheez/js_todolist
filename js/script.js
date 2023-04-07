@@ -11,8 +11,6 @@ const createTodoItem = (item) => {
     let itemLi = document.createElement("li");
     itemLi.classList.add("todo-task");
     itemLi.innerText = item;
-    // add local storage check to this line later
-    // add save to local storage to this line later
     todoItem.append(itemLi);
 
     let editBtn = document.createElement("button");
@@ -21,11 +19,7 @@ const createTodoItem = (item) => {
     todoItem.append(editBtn);
     editBtn.addEventListener("click", (e) =>  
     {
-        // console.log(e.target);
-        // console.log(e);
         updateTodo(e);
-        // todoList.removeChild(divTodo);
-        // add save to local storage to this line later
     });
 
     let deleteBtn = document.createElement("button");
@@ -33,13 +27,8 @@ const createTodoItem = (item) => {
     deleteBtn.innerHTML = "delete";
     todoItem.append(deleteBtn);
     deleteBtn.addEventListener("click", (e) => {
-        // console.log(e.target);
-        // console.log(e);
         deleteTodoLocalStorage(e);
         todoItem.remove();
-        // deleteTodoLocalStorage();
-        // todoList.removeChild(divTodo);
-        // add save to local storage to this line later
     });
 
     todoList.append(todoItem);
@@ -63,27 +52,6 @@ const addTodo = (e) => {
         localStorage.setItem("todo", JSON.stringify(todos));
         inputTodo.value = "";
         inputTodo.focus();
-        
-        // let index = updateTodo(e);
-        // console.log(index);
-
-        // e.target.previousSibling.innerText = inputTodo.value;
-
-        
-        // // let elem = e.target.previousSibling.innerText;
-        // // console.log(elem);
-        // // let index = todos.indexOf(todos.indexOf.target.previousSibling.innerText);
-        // // let index = todos.indexOf(elem);
-        // // console.log(index);
-        // // todos[index] = inputTodo.value;
-        // todos[index] = inputTodo.value;
-        // console.log(todos[index]);
-        
-
-        // addTodoBtn.value = "Submit";
-        // localStorage.setItem("todo", JSON.stringify(todos));
-        // inputTodo.value = "";
-        // inputTodo.focus();
 
         return false;
     }
@@ -92,7 +60,6 @@ const addTodo = (e) => {
         createTodoItem(inputTodo.value);
         todos.push(inputTodo.value);
         saveTodoLocalStorage(todos);
-        // add save to local storage to this line later
         inputTodo.value = "";
         inputTodo.focus();
     }
@@ -117,7 +84,6 @@ const updateTodo = (e) => {
         // todos[index] = inputTodo.value;
 
         return;
-        // editItem = e;
     }
 }
 
@@ -128,23 +94,26 @@ const checkTodosLocalStorage = () => {
 
 // Function to save a todo to Local Storage
 const saveTodoLocalStorage = (todo) => {
-    // const todos = checkTodosLocalStorage();
-    // todos.push(todo);
     localStorage.setItem("todo", JSON.stringify(todo));
 }
 
 const deleteTodoLocalStorage = (e) => {
     e.preventDefault();
     const todos = checkTodosLocalStorage();
+    let tId = -1;
     if(e.target.classList.contains("delete-btn")) {
-        let tId = e.target.previousSibling.innerText;  //target.parentElement.id;
         console.log(tId);
-        
-        let todosRemaining = todos.filter(todo => todo.id !== parseInt(tId));
-        console.log(todosRemaining);
-        localStorage.setItem("todo", JSON.stringify(todosRemaining));
-
-    }
+        let todoEdit = e.target.previousSibling.previousSibling.innerText;  //target.parentElement.id;
+        console.log(todos);
+        todos.forEach(todo => {
+            if(todo == todoEdit) {
+                console.log(todoEdit + "" + "Yah ");
+                tId = todos.indexOf(todoEdit);
+                todos.splice(1, tId);
+                localStorage.setItem("todo", JSON.stringify(todos));
+            } 
+        })       
+    }    
 }
 
 const getTodos = () => {
