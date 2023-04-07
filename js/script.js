@@ -36,6 +36,7 @@ const createTodoItem = (item) => {
     return todoList;
 }
 
+// Function to add a todo 
 const addTodo = (e) => {
     e.preventDefault();
     const todos = checkTodosLocalStorage();
@@ -97,6 +98,7 @@ const saveTodoLocalStorage = (todo) => {
     localStorage.setItem("todo", JSON.stringify(todo));
 }
 
+// Function to delete from the local storage
 const deleteTodoLocalStorage = (e) => {
     e.preventDefault();
     const todos = checkTodosLocalStorage();
@@ -110,12 +112,13 @@ const deleteTodoLocalStorage = (e) => {
                 console.log(todoEdit + "" + "Yah ");
                 tId = todos.indexOf(todoEdit);
                 todos.splice(1, tId);
-                localStorage.setItem("todo", JSON.stringify(todos));
+                saveTodoLocalStorage(todos);
             } 
         })       
     }    
 }
 
+// Function to load todos from local storage and display on the UI
 const getTodos = () => {
     const todos = checkTodosLocalStorage();
 
@@ -123,7 +126,6 @@ const getTodos = () => {
         createTodoItem(todo);
     });
 }
-
 
 addTodoBtn.addEventListener("click", addTodo);
 document.addEventListener("DOMContentLoaded", getTodos);
