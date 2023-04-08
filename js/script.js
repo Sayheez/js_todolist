@@ -102,7 +102,7 @@ const saveTodoLocalStorage = (todo) => {
 const deleteTodoLocalStorage = (e) => {
     e.preventDefault();
     const todos = checkTodosLocalStorage();
-    let tId = -1;
+    let tId = 0;
     if(e.target.classList.contains("delete-btn")) {
         console.log(tId);
         let todoEdit = e.target.previousSibling.previousSibling.innerText;  //target.parentElement.id;
@@ -111,7 +111,7 @@ const deleteTodoLocalStorage = (e) => {
             if(todo == todoEdit) {
                 console.log(todoEdit + "" + "Yah ");
                 tId = todos.indexOf(todoEdit);
-                todos.splice(1, tId);
+                todos.splice(tId, 1);
                 saveTodoLocalStorage(todos);
             } 
         })       
