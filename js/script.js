@@ -82,7 +82,7 @@ const updateTodo = (e) => {
         console.log(elem);
         let index = todos.indexOf(elem);
         console.log(index);
-        // todos[index] = inputTodo.value;
+        todos[index] = inputTodo.value;
 
         return;
     }
@@ -104,17 +104,14 @@ const deleteTodoLocalStorage = (e) => {
     const todos = checkTodosLocalStorage();
     let tId = 0;
     if(e.target.classList.contains("delete-btn")) {
-        console.log(tId);
         let todoEdit = e.target.previousSibling.previousSibling.innerText;  //target.parentElement.id;
-        console.log(todos);
         todos.forEach(todo => {
             if(todo == todoEdit) {
-                console.log(todoEdit + "" + "Yah ");
                 tId = todos.indexOf(todoEdit);
                 todos.splice(tId, 1);
                 saveTodoLocalStorage(todos);
             } 
-        })       
+        });       
     }    
 }
 
